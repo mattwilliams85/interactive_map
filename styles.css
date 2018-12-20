@@ -1,0 +1,14 @@
+body,
+.leaflet-container {
+  background: #222;
+}
+#map {
+  height: 100vh;
+  width: 100%;
+}
+.leaflet-control-mouseposition {
+  color: white;
+}
+* {
+  cursor: pointer !important;
+}

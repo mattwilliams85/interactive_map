@@ -13,152 +13,17 @@
       crossorigin=""
     />
     <link rel="stylesheet" src="L.Control.MousePosition.css" />
-    <script src="main.js"></script>
+    <link rel="stylesheet" src="styles.css" />
 
     <script
       src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js"
       integrity="sha512-nMMmRyTVoLYqjP9hrbed9S+FzjZHW5gY1TWCHA5ckwXZBadntCNs8kEqAWdrb9O7rxbCaA4lKTIWjDXZxflOcA=="
       crossorigin=""
     ></script>
-    <style>
-      body,
-      .leaflet-container {
-        background: #222;
-      }
-      #map {
-        height: 100vh;
-        width: 100%;
-      }
-      .leaflet-control-mouseposition {
-        color: white;
-      }
-      * {
-        cursor: pointer !important;
-      }
-    </style>
   </head>
   <body>
     <div id="map"></div>
   </body>
   <script src="L.Control.MousePosition.js"></script>
-  <script>
-    // INITIATE
-    const savedCoordinates = JSON.parse(localStorage.getItem('latlng'));
-    const partyLatlng = savedCoordinates || [373, 1222];
-    const markers = {};
-    let marksHidden = true;
-    const map = L.map('map', {
-      crs: L.CRS.Simple,
-      // minZoom: 2,
-      minZoom: -5,
-      // maxZoom: 2,
-      maxZoom: 0,
-      zoomSnap: 0.5,
-      zoomDelta: 0.5
-    });
-    // const bounds = [[0, 0], [822, 1280]];
-    const bounds = [[0, 0], [1636, 1200]];
-    const image = L.imageOverlay('phandalin.jpg', bounds).addTo(map);
-    map.fitBounds(bounds);
-    map.setView(partyLatlng, 1);
-
-    // DEBUG
-    L.control.mousePosition().addTo(map);
-
-    // LOCATIONS
-    const loc = {
-      party: L.latLng(partyLatlng),
-      raventloft: L.latLng([407, 915])
-    };
-
-    // LOCATION MARKERS
-    const icon = L.icon({
-      iconUrl: 'redmark.png',
-      iconSize: [25, 40]
-    });
-
-    markers.party = { latlng: partyLatlng, options: { draggable: true, icon } };
-    // markers.ravenloft = { latlng: [407, 915], title: 'RavenLoft' };
-    markers.oldowlwell = { latlng: [633, 1104], title: 'Old Owl Well' };
-    markers.thundertree = { latlng: [872, 495], title: 'Thundertree' };
-    markers.phandalin = { latlng: [366, 691], title: 'Phandalin' };
-
-    Object.keys(markers).forEach(key => {
-      const { latlng, title, options } = markers[key];
-      // options = {
-      //   zIndexOffset: -1,
-      //   ...options
-      // };
-      const mark = L.marker(L.latLng(latlng), options || {});
-
-      markers[key].mark = mark;
-      if (key !== 'party') mark.setOpacity(0);
-      mark.addTo(map);
-      if (title) mark.bindTooltip(title);
-    });
-
-    // EVENT HANDLERS
-    document.onkeypress = e => {
-      if (e.keyCode === 104) {
-        Object.keys(markers).forEach(key => {
-          const { mark } = markers[key];
-
-          if (key === 'party') return;
-          marksHidden ? mark.setOpacity(1) : mark.setOpacity(0);
-        });
-        marksHidden = !marksHidden;
-      }
-    };
-
-    markers.party.mark.on('dragend', function(ev) {
-      const coordinates = ev.target._latlng;
-      const latlng = [coordinates.lat, coordinates.lng];
-      localStorage.setItem('latlng', JSON.stringify(latlng));
-    });
-
-    // TESTING
-  </script>
+  <script src="main.js"></script>
 </html>
-
-<script>
-  // var myIcon = L.icon({
-  //   iconUrl: 'marker.png',
-  //   iconSize: [40, 40]
-  // iconAnchor: [22, 94],
-  // popupAnchor: [-3, -76],
-  // shadowUrl: 'my-icon-shadow.png',
-  // shadowSize: [68, 95],
-  // shadowAnchor: [22, 94]
-  // });
-
-  // var myRenderer = L.canvas({ padding: 0.5 });
-  // L.rectangle(bounds, {
-  //   weight: 3,
-  //   opacity: 1,
-  //   fill: true,
-  //   fillColor: '#000000',
-  //   fillOpacity: 0.9,
-  //   renderer: myRenderer
-  // }).addTo(map);
-
-  // function l(lat, lng) {
-  //   return L.latLng([lat, lng]);
-  // }
-
-  // const roads = {
-  //   barovia: [[310, 1000], [304, 993], [235, 950], [228, 93]],
-  //   gypsy:
-
-  // };
-
-  // var travel = L.polyline(
-  //   [
-  //     l(savedCoordinates[0], savedCoordinates[1]),
-  //     l(310, 1000),
-  //     l(304, 993),
-  //     l(235, 950),
-  //     l(228, 935)
-  //   ],
-  //   { weight: 5 }
-  // ).addTo(map);
-</script>
