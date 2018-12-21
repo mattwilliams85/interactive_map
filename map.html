@@ -12,18 +12,23 @@
       integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
       crossorigin=""
     />
-    <link rel="stylesheet" src="L.Control.MousePosition.css" />
-    <link rel="stylesheet" src="styles.css" />
-
+    <link rel="stylesheet" href="styles/L.Control.MousePosition.css" />
+    <link rel="stylesheet" href="styles/main.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.11/lodash.js"></script>
     <script
       src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js"
       integrity="sha512-nMMmRyTVoLYqjP9hrbed9S+FzjZHW5gY1TWCHA5ckwXZBadntCNs8kEqAWdrb9O7rxbCaA4lKTIWjDXZxflOcA=="
       crossorigin=""
     ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   </head>
   <body>
+    <div class="marker_controls leaflet-control">
+      <div class="control add_marker_control" title="Add a marker"></div>
+      <div class="control del_marker_control" title="Delete a marker"></div>
+    </div>
     <div id="map"></div>
   </body>
-  <script src="L.Control.MousePosition.js"></script>
-  <script src="main.js"></script>
+  <script src="scripts/L.Control.MousePosition.js"></script>
+  <script src="scripts/main.js"></script>
 </html>
